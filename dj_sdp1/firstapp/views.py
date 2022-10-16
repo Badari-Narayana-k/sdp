@@ -4,16 +4,16 @@ from django.http import HttpResponse
 import pymongo
 
 client=pymongo.MongoClient('mongodb://localhost:27017')
-dbname=client['sdp1']
-collection=dbname['flask']
-randy={"email":"ksnbnarayan22@gmail.com","type":"astro21"}
-collection.insert_one(randy)
+dbname = client['SDP']
+
+# Define Collection
+collection = dbname['badari']
 
 def welcome(request):
-    umail=request.POST['email']
+    umail=request.POST['email-id']
     passw=request.POST['password']
     finder = {
-        "email": umail,
+        "email-id": umail,
         "password": passw
     }
     flag = 0
@@ -23,7 +23,7 @@ def welcome(request):
             break
 
     if flag == 1:
-        return render(request,'custo.html')
+        return render(request,'album.html')
 
 
     else:
@@ -46,3 +46,22 @@ def coverpage(request):
 
 def custo(request):
     return render(request, 'custo.html')
+def newuser(request):
+    return render(request, 'newuser.html')
+def route_newuser(request):
+
+    first_name = request.POST['fname']
+    last_name = request.POST['lname']
+    mobile = request.POST['mobile']
+    email_id = request.POST['email-id']
+    password = request.POST['password']
+    user_data = {
+        "first-name": first_name,
+        "last-name": last_name,
+        "mobile-number": mobile,
+        "email-id": email_id,
+        "password": password
+    }
+    collection.insert_one(user_data)
+
+    return render(request, 'album.html')

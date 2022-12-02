@@ -64,4 +64,4 @@ def route_newuser(request):
     }
     collection.insert_one(user_data)
 
-    return render(request, 'album.html')
+    return render(request, 'index.html')
